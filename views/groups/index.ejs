@@ -1,0 +1,7 @@
+<h1>All Posts</h1>
+
+<ul>
+    <% for(res of results){ %> 
+    <li><%= res.name %> <a href="/groups/<%= res.id %>">Show</a></li>
+    <% } %> 
+</ul>

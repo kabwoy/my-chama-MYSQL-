@@ -1,0 +1,21 @@
+<h1>Edit Group</h1>
+
+<form action="/groups/<%= results.id %>?_method=PUT" method="post">
+
+        <div>
+            <input type="text" placeholder="name" name="name" value="<%= results.name %> ">
+        </div>
+        <br>
+        <div>
+           <textarea name="description" id="" cols="30" rows="10"><%= results.description %></textarea>
+        </div>
+        <br>
+        <div>
+            <select name="category" id="">
+                <% for(res of categories){ %> 
+                <option value="<%= res.id%>" <%= res.id === results.category_id ? 'selected' : ''%> ><%= res.amount %> </option>
+                <% } %> 
+            </select>
+        </div>
+        <button type="submit">Update Group</button>
+</form>

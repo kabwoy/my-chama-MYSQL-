@@ -1,0 +1,21 @@
+<h1>Create Group</h1>
+
+<form action="/groups" method="post">
+
+        <div>
+            <input type="text" placeholder="name" name="name">
+        </div>
+        <br>
+        <div>
+           <textarea name="description" id="" cols="30" rows="10"></textarea>
+        </div>
+        <br>
+        <div>
+            <select name="category" id="">
+                <% for(res of result){ %> 
+                <option value="<%= res.id%> "><%= res.amount %> </option>
+                <% } %> 
+            </select>
+        </div>
+        <button type="submit">Create Group</button>
+</form>
