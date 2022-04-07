@@ -1,0 +1,34 @@
+<div>
+    <form action="/members" method="post">
+        <h1>Add Members</h1>
+        <div>
+            <input type="text" , placeholder="First_Name" name="fname">
+        </div>
+        <br>
+        <div>
+            <input type="text" , placeholder="Last_Name" name="lname">
+        </div>
+
+        <br>
+
+        <div>
+            <input type="text" , placeholder="phone" name="phone">
+        </div>
+        <br>
+        <div>
+            <input type="text" , placeholder="Next Of Kin" name="next_of_kin">
+        </div>
+            <br>
+        <div>
+            <select name="group" id="">
+                <option selected>choose group</option>
+                <% for(group of groups){ %> 
+                <option value="<%= group.id %>"><%= group.name %> </option>
+                <% } %> 
+            </select>
+        </div>
+        <br>
+        <button type="submit">Add Member</button>
+
+    </form>
+</div>

@@ -1,0 +1,34 @@
+<div>
+    <form action="/members/<%= member.id %>?_method=PUT" method="post">
+        <h1>Edit Members</h1>
+        <div>
+            <input type="text" , placeholder="First_Name" name="fname" value="<%= member.first_name %> ">
+        </div>
+        <br>
+        <div>
+            <input type="text" , placeholder="Last_Name" name="lname" value="<%= member.last_name %> ">
+        </div>
+
+        <br>
+
+        <div>
+            <input type="text" , placeholder="phone" name="phone" value="<%= member.phone %> ">
+        </div>
+        <br>
+        <div>
+            <input type="text" , placeholder="Next Of Kin" name="next_of_kin" value="<%= member.next_of_kin %> ">
+        </div>
+            <br>
+        <div>
+            <select name="group" id="">
+                <option selected>choose group</option>
+                <% for(group of groups){ %> 
+                <option value="<%= group.id %>" <%= group.id === member.group_id ? 'selected': '' %> ><%= group.name %> </option>
+                <% } %> 
+            </select>
+        </div>
+        <br>
+        <button type="submit">Update Member</button>
+
+    </form>
+</div>

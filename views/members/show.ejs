@@ -1,0 +1,15 @@
+<div style="text-align: center;">
+<h1>Show Page</h1>
+<hr>
+<h2>First Name: <%= member.first_name %> </h2>
+<h2>Last Name: <%= member.last_name %> </h2>
+<p><b>Phone Number</b>: <%= member.phone %> </p>
+<i><b>Next Of Kin </b>: <%= member.next_of_kin %> </i>
+<h3>Belongs to : <%= member.group_name %> </h3>
+
+<a href="/members/<%= member.id %>/edit">Update Member</a>
+<form action="/members/<%= member.id%>?_method=DELETE" method="post">
+    <br>
+<button type="submit">Delete</button>
+</form>
+</div>

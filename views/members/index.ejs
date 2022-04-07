@@ -1,0 +1,11 @@
+<h1>All Members</h1>
+<ul>
+    <% for(member of members){ %> 
+    <li>
+        <%= member.first_name %> | <a href="/members/<%= member.id %> ">Show</a>
+    </li>
+
+    <% } %> 
+
+    <a href="/members/new">Add Member</a> || <a href="/groups">View Groups Available</a>
+</ul>
