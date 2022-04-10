@@ -11,6 +11,7 @@ app.set("view engine" , "ejs")
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({extended:true}))
+app.use('/images' , express.static('images'))
 app.use(groupRoutes)
 app.use(memberRoutes)
 

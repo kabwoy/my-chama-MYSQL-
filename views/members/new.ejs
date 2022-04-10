@@ -1,5 +1,5 @@
 <div>
-    <form action="/members" method="post">
+    <form action="/members" method="post" enctype="multipart/form-data">
         <h1>Add Members</h1>
         <div>
             <input type="text" , placeholder="First_Name" name="fname">
@@ -27,6 +27,8 @@
                 <% } %> 
             </select>
         </div>
+        <br>
+        <input type="file" name="passport" id="">
         <br>
         <button type="submit">Add Member</button>
 
