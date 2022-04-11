@@ -6,6 +6,9 @@
 <p><b>Phone Number</b>: <%= member.phone %> </p>
 <i><b>Next Of Kin </b>: <%= member.next_of_kin %> </i>
 <h3>Belongs to : <%= member.group_name %> </h3>
+<img style="width: 500px; height: 300px;" src="/<%= member.imagePath.split("\\")[1] %> " alt="" >
+
+
 
 <a href="/members/<%= member.id %>/edit">Update Member</a>
 <form action="/members/<%= member.id%>?_method=DELETE" method="post">

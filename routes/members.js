@@ -5,10 +5,12 @@ const db = require("../data/database")
 
 const router = express.Router()
 
+
+
 const storageConfig = multer.diskStorage({
 
     destination:function(req,file,cb){
-        cb(null , 'images')
+        cb(null , 'images/')
     },
 
     filename:function(req,file,cb){
@@ -38,9 +40,9 @@ router.get("/members/new" , async(req, res)=>{
 router.post("/members" ,upload.single('passport'), async(req,res)=>{
 
     let {fname , lname , phone , next_of_kin , group} = req.body
-    const imagePath = req.file.path
-    console.log(imagePath)
-    await db.query("INSERT INTO members(first_name , last_name , phone , next_of_kin ,group_id , imagePath)VALUES(?)", [[fname , lname , phone , next_of_kin , group , imagePath]]).then((data)=>{
+    let imageLocation = req.file
+    console.log(imageLocation.path)
+    await db.query("INSERT INTO members(first_name , last_name , phone , next_of_kin ,group_id , imagePath)VALUES(?)", [[fname , lname , phone , next_of_kin , group , imageLocation.path]]).then((data)=>{
         console.log("DATA INSERTED SUCCESSFULLY")
 
         res.redirect("/members")
