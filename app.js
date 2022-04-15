@@ -1,5 +1,6 @@
 const express = require("express")
 const methodOverride = require("method-override")
+const session = require("express-session")
 const path = require("path")
 const groupRoutes = require("./routes/groups")
 const memberRoutes = require("./routes/members")
@@ -16,21 +17,44 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('images'))
 app.use(groupRoutes)
-app.use(memberRoutes)
 app.use(usersRoutes)
+app.use(memberRoutes)
 
 
-app.get("/" , (req,res)=>{
+// app.use(function(req,res,next){
 
-    if(req.session.isAuthenticated){
+//     const user = req.session.user
+//     const isAuth = req.session.isAuthenticated
 
-        return res.render("home")
+//     if(!user.isAdmin === 1){
+
+//         return next()
+//     }
+
+//     app.use(memberRoutes)
+
+//     res.locals.isAuth = isAuth; 
+
+//     res.locals.userDoc = user
+
+//     next()
 
 
-    }else{
+// })
 
-        res.render("users/401")
-    }
+
+
+app.use(session({
+    secret:"kaboi",
+    resave:false,
+    saveUninitialized:false
+}))
+
+app.get("/" ,  (req,res)=>{
+
+   
+
+   res.render("home")
 
   
 })

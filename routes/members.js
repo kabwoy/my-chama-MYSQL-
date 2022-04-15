@@ -1,11 +1,13 @@
 const express = require("express")
 const multer = require('multer')
-const { append } = require("express/lib/response")
+const users = require("./users")
+const auth = require("./milddleware")
 const db = require("../data/database")
+
 
 const router = express.Router()
 
-
+router.use(users)
 
 const storageConfig = multer.diskStorage({
 
@@ -20,7 +22,8 @@ const storageConfig = multer.diskStorage({
 
 const upload = multer({storage:storageConfig})
 
-router.get("/members" , async(req, res)=>{
+router.get("/members" , auth,  async(req, res)=>{
+
 
     const [members] = await db.query("SELECT * FROM members")
 
@@ -60,6 +63,8 @@ router.get("/members/:id" , async(req, res)=>{
 })
 
 router.get("/members/:id/edit" , async(req,res)=>{
+
+    console.log(req.session)
     const [member] = await db.query(`SELECT * FROM members WHERE id = ${req.params.id}`)
     const[groups] = await db.query("SELECT * FROM group_teams")
 
