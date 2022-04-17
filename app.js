@@ -37,7 +37,7 @@ app.use(async function(req,res,next){
 
     res.locals.isAuth = isAuth
 
-    res.locals.id = parseInt(user.id)
+    res.locals.id = user.id
 
    
     next()

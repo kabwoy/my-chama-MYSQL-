@@ -47,13 +47,12 @@ router.get("/members/new" , isAuth, async(req, res)=>{
 
 router.post("/members" ,upload.single('passport'), async(req,res)=>{
 
-    let {fname , lname , phone , next_of_kin , group} = req.body
+    let {fname , lname , phone , next_of_kin , group , user_id} = req.body
     let imageLocation = req.file
     console.log(imageLocation.path)
-    await db.query("INSERT INTO members(first_name , last_name , phone , next_of_kin ,group_id , imagePath)VALUES(?)", [[fname , lname , phone , next_of_kin , group , imageLocation.path]]).then((data)=>{
+    await db.query("INSERT INTO members(first_name , last_name , phone , next_of_kin ,group_id , imagePath , user_id)VALUES(?)", [[fname , lname , phone , next_of_kin , group , imageLocation.path , user_id]]).then((data)=>{
         console.log("DATA INSERTED SUCCESSFULLY")
-
-        res.redirect("/members")
+        res.redirect("/")
     }).catch((err)=>{
         console.log(err.message)
     })
@@ -90,5 +89,14 @@ router.delete("/members/:id" , isAdmin, async(req, res)=>{
     res.redirect("/members")
 })
 
+router.get("/profile/:id" , async(req,res)=>{
 
+    const {id} = req.params
+
+   const [results] =  await db.query(`SELECT members.*,users.email FROM members INNER JOIN users ON members.user_id = users.id WHERE members.user_id = '${id}'`)
+
+    console.log(results)
+
+    res.render("profiles/profiles" , {results:results[0]})
+})
 module.exports = router

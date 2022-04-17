@@ -1,6 +1,6 @@
 <div>
     <form action="/members" method="post" enctype="multipart/form-data">
-        <h1>Add Members</h1>
+        <h1>Register For A Group</h1>
         <div>
             <input type="text" , placeholder="First_Name" name="fname">
         </div>
@@ -31,7 +31,7 @@
         <input type="file" name="passport" id="">
         <br>
 
-        <input type="text" value="<%= locals.id %> " hidden>
+        <input type="text" value="<%= locals.id %>" name="user_id" hidden>
         <button type="submit">Add Member</button>
 
     </form>
