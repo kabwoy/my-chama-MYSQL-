@@ -1,6 +1,12 @@
 const express = require("express")
+const isAdmin = require("../middlewares/isAdmin")
+const isAuth = require("../middlewares/isAuth")
+const usersRoutes = require("../routes/users")
 const db = require("../data/database")
+const { append } = require("express/lib/response")
 const router = express.Router()
+
+router.use(usersRoutes)
 
 router.get("/groups" , async(req,res)=>{
 
@@ -9,7 +15,9 @@ router.get("/groups" , async(req,res)=>{
     res.render("groups/index" , {results})
 })
 
-router.get("/groups/new" , async(req, res)=>{
+router.use(isAuth)
+
+router.get("/groups/new" ,  async(req, res)=>{
     const[result] = await db.query("SELECT * FROM categories" )
   
     res.render("groups/new" ,{result})

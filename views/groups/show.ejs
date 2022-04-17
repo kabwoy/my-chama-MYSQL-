@@ -10,14 +10,27 @@
     <h2>Name: <%= item.name %> </h2>
     <h3>description: <%= item.description %> </h3>
     <i><b>Category Amount</b>: <%= item.category_amount %> </i>
-    <i style="display: block;"><b>Created On</b>: <%= item.date.toLocaleTimeString() %>  <%= item.date.toLocaleDateString() %> </i>
 
     <% } %> 
+
+    <% if (locals.isAdmin === 1) { %>
+
+        <a href="/groups/<%= item.id %>/edit">Update</a>
+
+        <br>
+
+        <form action="/groups/<%= item.id %>?_method=DELETE" method="post">
+            <button type="submit">Delete</button>
+        </form>
+     
+    <% } %>
+
+    <br>
+
+    <a href="/members/new">Join Group</a>
     
-    <a href="/groups/<%= item.id %>/edit">Update</a>
-    <a href="/groups">View Groups</a>
-    <form action="/groups/<%= item.id %>?_method=DELETE" method="post">
-        <button type="submit">Delete</button>
-    </form>
+    
+    <a href="/groups">Back to All Groups</a>
+    
 
 </div>

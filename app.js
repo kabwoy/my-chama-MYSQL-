@@ -2,10 +2,11 @@ const express = require("express")
 const methodOverride = require("method-override")
 const session = require("express-session")
 const path = require("path")
+const db = require("./data/database")
 const groupRoutes = require("./routes/groups")
 const memberRoutes = require("./routes/members")
 const usersRoutes = require("./routes/users")
-
+const isAuth = require("./middlewares/isAuth")
 
 const app = express()
 
@@ -16,32 +17,33 @@ app.use(express.static("public"))
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('images'))
-app.use(groupRoutes)
 app.use(usersRoutes)
+
+app.use(async function(req,res,next){
+
+    const user = req.session.user
+
+    const isAuth = req.session.isAuthenticated
+
+    if(!user || !isAuth){
+
+        return next()
+    }
+
+    const[results] = await db.query(`SELECT * FROM users WHERE id = '${user.id}' `)
+    const ans = results[0].isAdmin
+
+    res.locals.isAdmin = ans
+
+    res.locals.isAuth = isAuth
+
+    res.locals.id = parseInt(user.id)
+
+   
+    next()
+})
+app.use(groupRoutes)
 app.use(memberRoutes)
-
-
-// app.use(function(req,res,next){
-
-//     const user = req.session.user
-//     const isAuth = req.session.isAuthenticated
-
-//     if(!user.isAdmin === 1){
-
-//         return next()
-//     }
-
-//     app.use(memberRoutes)
-
-//     res.locals.isAuth = isAuth; 
-
-//     res.locals.userDoc = user
-
-//     next()
-
-
-// })
-
 
 
 app.use(session({
@@ -50,13 +52,18 @@ app.use(session({
     saveUninitialized:false
 }))
 
+app.use(isAuth)
+
+
+
 app.get("/" ,  (req,res)=>{
 
-   
 
    res.render("home")
 
-  
+
 })
+
+
 
 app.listen(3000)

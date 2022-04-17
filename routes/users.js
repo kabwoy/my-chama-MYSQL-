@@ -42,22 +42,19 @@ router.post("/new_user_session" , async(req,res)=>{
         return res.render("users/login.ejs")
     }
 
-    
-
     req.session.isAuthenticated = true
 
     // const [ans] = await db.query(`SELECT * FROM users WHERE id = '${req.session.user.id}'`)
 
     req.session.user = {id:results[0].id , email:results[0].email,isAdmin:results[0].isAdmin}
 
+
     res.redirect("/")
  
-    
 } )
 
 router.post("/signup" , async(req,res)=>{
     console.log(req.body)
-
     const enteredEmail = req.body.email
     const enteredPassword = req.body.password
 

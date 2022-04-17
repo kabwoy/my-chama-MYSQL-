@@ -5,5 +5,20 @@
     <li><%= res.name %> <a href="/groups/<%= res.id %>">Show</a></li>
     <% } %> 
 
-    <a href="/groups/new">Add New Group</a> || <a href="/members">Show Members</a>
+        <% if (locals.isAdmin === 1) { %>
+
+            <a href="/groups/new">Add New Group</a> || <a href="/members">Show Members</a>
+         
+        <% } %>
+
+      
+
+
+
+
+        
+
+    
+
+   
 </ul>
